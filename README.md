@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.org/andela/healthchecks_elcuatro.svg?branch=develop)](https://travis-ci.org/andela/healthchecks_elcuatro)
 
+[![Code Climate](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/gpa.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro)
+
+[![Test Coverage](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/coverage.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro/coverage)
+ 
+[![Issue Count](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/issue_count.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro)
+
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
 ![Screenshot of My Checks page](/stuff/screenshots/my_checks.png?raw=true "My Checks Page")
