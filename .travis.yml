@@ -17,3 +17,8 @@ after_success: coveralls
 cache: pip
 notifications:
   slack: andela:qYq8cedfppRazYDeSNNWD9PS
+addons:
+  code_climate:
+    repo_token: 9d89f6a565175bb7e15e6647d8efad95927c547b
+after_success:
+  - vendor/bin/test-reporter
