@@ -88,28 +88,6 @@ DATABASES = {
     }
 }
 
-# You can switch database engine to postgres or mysql using environment
-# variable 'DB'. Travis CI does this.
-if os.environ.get("DB") == "postgres":
-    DATABASES = {
-        'default': {
-            'ENGINE':   'django.db.backends.postgresql',
-            'NAME':     'hc',
-            'USER':     'postgres',
-            'TEST': {'CHARSET': 'UTF8'}
-        }
-    }
-
-if os.environ.get("DB") == "mysql":
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'USER':     'root',
-            'NAME':     'hc',
-            'TEST': {'CHARSET': 'UTF8'}
-        }
-    }
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -149,7 +127,8 @@ PUSHOVER_EMERGENCY_EXPIRATION = 86400
 PUSHBULLET_CLIENT_ID = None
 PUSHBULLET_CLIENT_SECRET = None
 
-if os.path.exists(os.path.join(BASE_DIR, "hc/local_settings.py")):
+
+if os.path.exists(os.path.join(BASE_DIR, "settings/local_settings.py")):
     from .local_settings import *
 else:
     warnings.warn("local_settings.py not found, using defaults")
