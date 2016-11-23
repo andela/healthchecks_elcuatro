@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import warnings
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
+
+LOCAL_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 HOST = "localhost"
 SECRET_KEY = "---"
@@ -84,31 +87,9 @@ TEST_RUNNER = 'hc.api.tests.CustomRunner'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':   './hc.sqlite',
+        'NAME': './hc.sqlite',
     }
 }
-
-# You can switch database engine to postgres or mysql using environment
-# variable 'DB'. Travis CI does this.
-if os.environ.get("DB") == "postgres":
-    DATABASES = {
-        'default': {
-            'ENGINE':   'django.db.backends.postgresql',
-            'NAME':     'hc',
-            'USER':     'postgres',
-            'TEST': {'CHARSET': 'UTF8'}
-        }
-    }
-
-if os.environ.get("DB") == "mysql":
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'USER':     'root',
-            'NAME':     'hc',
-            'TEST': {'CHARSET': 'UTF8'}
-        }
-    }
 
 LANGUAGE_CODE = 'en-us'
 
@@ -149,7 +130,8 @@ PUSHOVER_EMERGENCY_EXPIRATION = 86400
 PUSHBULLET_CLIENT_ID = None
 PUSHBULLET_CLIENT_SECRET = None
 
-if os.path.exists(os.path.join(BASE_DIR, "hc/local_settings.py")):
+
+if os.path.exists(os.path.join(LOCAL_DIR, "settings/local_settings.py")):
     from .local_settings import *
 else:
     warnings.warn("local_settings.py not found, using defaults")
