@@ -1,6 +1,6 @@
 # healthchecks
 
-[![Code Climate](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/gpa.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro) [![Test Coverage](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/coverage.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro/coverage) [![Issue Count](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/issue_count.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro) [![Coverage Status](https://coveralls.io/repos/github/andela/healthchecks_elcuatro/badge.svg?branch=develop)](https://coveralls.io/github/andela/healthchecks_elcuatro?branch=develop)
+[![Code Climate](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/gpa.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro) [![Issue Count](https://codeclimate.com/github/andela/healthchecks_elcuatro/badges/issue_count.svg)](https://codeclimate.com/github/andela/healthchecks_elcuatro) [![Coverage Status](https://coveralls.io/repos/github/andela/healthchecks_elcuatro/badge.svg?branch=develop)](https://coveralls.io/github/andela/healthchecks_elcuatro?branch=develop)
 
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
