@@ -1,15 +1,15 @@
 language: python
 python:
-  - "2.7"
+- '2.7'
 install:
-    - pip install -r requirements.txt
-    - pip install braintree coveralls mock mysqlclient
+- pip install -r requirements.txt
+- pip install braintree coveralls mock mysqlclient
 env:
-  - DB=postgres
+- DB=postgres
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
 script:
-  - coverage run --omit=*/tests/* --source=hc manage.py test
+- coverage run --omit=*/tests/* --source=hc manage.py test
 after_success: coveralls
 cache: pip
 notifications:
@@ -17,6 +17,8 @@ notifications:
 deploy:
   provider: heroku
   api_key:
-    secure: 679da267-262b-4e74-ab99-59c057da5c73
-  app:
-    develop: hc-elcuatro-dev
+    secure: i4U0zp3J9NK5I+yBkwBt/XQ8rRp5lg/QgzKCqCLzjXVU743GXnDZaecP3HCGOanhB+5w1oeGc1JuZ48q8KbARywWJiP+S/UkDQlLpVhsXhM7IU7WQzEph5PcX7JXZ4gQkSFTXmz+9vONzoqq09m7T3onMxavZQITTzhe/ANwgRxaKCRBQQq4nuLXFDuov9zATlfsvOX5Bi3twbtd1H7YA7nO5YMl5U7dS/69oxU2N6WtSGGzZbt+MTniSEjjaqSniXAfbwnCPrLpR5pnCjE+aqAoYnC0pSsjqPj/5WFKvU3h4n8x0LdrUckUtjZTkTIYujLsCu7mju2c3/OBczd9huKqANXGTLEIpvtHx3am565vclIW1rsms2I6xS0tNTNSjEUBK65k6Bv6KFi+9lKCiItm8DBVpvRzaskEkzHJ2ldMNAt/j7Lc0pXo7i9yq+KJNNOGZLqLHxo4YhxDSKLJeZCBOFRSH8L+3fGKSdqjlFw3TWjLSaxP5khNW6e3ulg2d2as3lSw/aSICkHPbNHnfvYVf6HHtgV1eRViJnaGnvQOOm6bwHFus35auwYP+PuUDTwtF6HrHYczeoCPXTmRuTp6tNG7zsHt0nV9DR3mVhiJjSXHfNsoDLyTksN17qNHG6c44rrt9H0iUoQ8r13VNxNeCJCn5uDu9Zu2V+qKDJg=
+  app: hc-elcuatro-dev
+  on:
+    repo: andela/healthchecks_elcuatro
+    branch: develop
