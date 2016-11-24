@@ -14,3 +14,9 @@ after_success: coveralls
 cache: pip
 notifications:
   slack: andela:qYq8cedfppRazYDeSNNWD9PS
+deploy:
+  provider: heroku
+  api_key:
+    secure: 679da267-262b-4e74-ab99-59c057da5c73
+  app:
+    develop: hc-elcuatro-dev
