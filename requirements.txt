@@ -3,6 +3,7 @@ click==6.6
 coverage==4.2
 cssselect==1.0.0
 cssutils==1.0.1
+dj-database-url==0.4.1
 Django==1.10
 django-appconf==1.0.1
 django-compressor==2.1
