@@ -135,3 +135,5 @@ if os.path.exists(os.path.join(LOCAL_DIR, "settings/local_settings.py")):
     from .local_settings import *
 else:
     warnings.warn("local_settings.py not found, using defaults")
+
+APPEND_SLASH = False
