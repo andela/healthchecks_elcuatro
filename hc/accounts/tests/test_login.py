@@ -20,13 +20,16 @@ class LoginTestCase(TestCase):
         assert r.status_code == 302
 
         ### Assert that a user was created
+        self.assertEqual(User.objects.count(), 1)
 
         # And email sent
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, 'Log in to healthchecks.io')
+        assert (len(mail.outbox) > 1)
+        
         ### Assert contents of the email body
-
+        self.assertIn('To start receiving healthchecks.io notification to this address', mail.outbox[0].body)
         ### Assert that check is associated with the new user
+        verify = Check.objects.get(code=check.code)
+        assert verify.user
 
     def test_it_pops_bad_link_from_session(self):
         self.client.session["bad_link"] = True
