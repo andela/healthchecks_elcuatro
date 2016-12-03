@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 import os
 import warnings
+import dj_database_url
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -83,8 +85,11 @@ TEST_RUNNER = 'hc.api.tests.CustomRunner'
 # install requirements.txt and do manage.py runserver and it works
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':   './hc.sqlite',
+        'ENGINE':   'django.db.backends.postgresql',
+        'NAME':     'hc',
+        'USER':     'elcuatro',
+        'PASSWORD': 'elcuatro_admin',
+        'TEST': {'CHARSET': 'UTF8'}
     }
 }
 
@@ -134,6 +139,10 @@ STATICFILES_FINDERS = (
 COMPRESS_OFFLINE = True
 
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
+
+# Update database configuration with $DATABASE_URL.
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Slack integration -- override these in local_settings
 SLACK_CLIENT_ID = None
