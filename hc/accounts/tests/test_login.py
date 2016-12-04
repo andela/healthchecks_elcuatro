@@ -23,10 +23,10 @@ class LoginTestCase(TestCase):
         self.assertEqual(User.objects.count(), 1)
 
         # And email sent
-        assert (len(mail.outbox) > 1)
+        self.assertEqual(len(mail.outbox), 1)
         
         ### Assert contents of the email body
-        self.assertIn('To start receiving healthchecks.io notification to this address', mail.outbox[0].body)
+        self.assertIn('please open the link below', mail.outbox[0].body)
         ### Assert that check is associated with the new user
         verify = Check.objects.get(code=check.code)
         assert verify.user
