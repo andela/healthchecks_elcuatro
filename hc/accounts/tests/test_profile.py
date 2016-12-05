@@ -8,7 +8,7 @@ from hc.api.models import Check
 class ProfileTestCase(BaseTestCase):
 
     def test_it_sends_set_password_link(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username= self.alice.email, password="password")
 
         form = {"set_password": "1"}
         r = self.client.post("/accounts/profile/", form)
@@ -35,7 +35,7 @@ class ProfileTestCase(BaseTestCase):
         self.assertIn('This is a monthly report sent by healthchecks.io.', mail.outbox[0].body)
 
     def test_it_adds_team_member(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username=self.alice.email, password="password")
 
         form = {"invite_team_member": "1", "email": "frank@example.org"}
         r = self.client.post("/accounts/profile/", form)
@@ -55,14 +55,14 @@ class ProfileTestCase(BaseTestCase):
         self.assertTrue("You have been invited to join alice@example.org on " in mail.outbox[0].subject)
         
     def test_add_team_member_checks_team_access_allowed_flag(self):
-        self.client.login(username="charlie@example.org", password="password")
+        self.client.login(username=self.charlie.email, password="password")
 
         form = {"invite_team_member": "1", "email": "frank@example.org"}
         r = self.client.post("/accounts/profile/", form)
         assert r.status_code == 403
 
     def test_it_removes_team_member(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username=self.alice.email, password="password")
 
         form = {"remove_team_member": "1", "email": "bob@example.org"}
         r = self.client.post("/accounts/profile/", form)
@@ -74,7 +74,7 @@ class ProfileTestCase(BaseTestCase):
         self.assertEqual(self.bobs_profile.current_team, None)
 
     def test_it_sets_team_name(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username=self.alice.email, password="password")
 
         form = {"set_team_name": "1", "team_name": "Alpha Team"}
         r = self.client.post("/accounts/profile/", form)
@@ -84,14 +84,14 @@ class ProfileTestCase(BaseTestCase):
         self.assertEqual(self.alice.profile.team_name, "Alpha Team")
 
     def test_set_team_name_checks_team_access_allowed_flag(self):
-        self.client.login(username="charlie@example.org", password="password")
+        self.client.login(username= self.charlie.email, password="password")
 
         form = {"set_team_name": "1", "team_name": "Charlies Team"}
         r = self.client.post("/accounts/profile/", form)
         assert r.status_code == 403
 
     def test_it_switches_to_own_team(self):
-        self.client.login(username="bob@example.org", password="password")
+        self.client.login(username= self.bob.email, password="password")
 
         self.client.get("/accounts/profile/")
 
@@ -101,7 +101,7 @@ class ProfileTestCase(BaseTestCase):
         self.assertEqual(self.bobs_profile.current_team, self.bobs_profile)
 
     def test_it_shows_badges(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username= self.alice.email, password="password")
         Check.objects.create(user=self.alice, tags="foo a-B_1  baz@")
         Check.objects.create(user=self.bob, tags="bobs-tag")
 
