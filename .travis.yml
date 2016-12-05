@@ -13,7 +13,8 @@ before_script: [
   python manage.py migrate
 ]
 script:
-- coverage run --omit=*/tests/* --source=hc manage.py test
+  - python manage.py collectstatic --noinput
+  - coverage run --omit=*/tests/* --source=hc manage.py test
 after_success: coveralls
 cache: pip
 sudo: required
