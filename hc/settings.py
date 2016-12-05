@@ -143,8 +143,9 @@ COMPRESS_OFFLINE = True
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
 # Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+if os.environ.get('HEROKU'):
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
 
 # Slack integration -- override these in local_settings
 SLACK_CLIENT_ID = None
