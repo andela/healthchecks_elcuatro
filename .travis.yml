@@ -8,12 +8,8 @@ env:
   - DB=postgres
 addons:
   postgresql: '9.6'
-before_install:
-  - export DJ_DEBUG=False
-  - export DABATASE_URL=postgres://postgres@localhost/travisdb
 before_script: [
-  python manage.py collectstatic --noinput,
-  python manage.py migrate
+  python manage.py collectstatic --noinput
 ]
 script:
   - python manage.py collectstatic --noinput
