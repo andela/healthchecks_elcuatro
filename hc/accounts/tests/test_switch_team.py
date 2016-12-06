@@ -20,7 +20,7 @@ class SwitchTeamTestCase(BaseTestCase):
     def test_it_checks_team_membership(self):
         self.client.login(username=self.charlie.email, password="password")
 
-        url = "/accounts/switch_team/%s/" % self.alice.username
+        url = "/accounts/switch_team/{}/".format(self.alice.username)
         r = self.client.get(url)
         ### Assert the expected error code
         self.assertEqual(r.status_code, 403)
