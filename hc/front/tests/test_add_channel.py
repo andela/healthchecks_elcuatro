@@ -1,6 +1,6 @@
 from django.test.utils import override_settings
 
-from hc.api.models import Channel
+from hc.api.models import Channel, Check
 from hc.test import BaseTestCase
 
 
@@ -39,18 +39,23 @@ class AddChannelTestCase(BaseTestCase):
 
     ### Test that the team access works
     def test_team_access_network(self):
-        url = "/integrations/add/"
-        form = {"kind": "email", "value": "roy@example.org"}
-        self.client.login(username="roy@example.org", password="password")
-        self.client.post(url, form)
-        ch = Channel.objects.get()
-        self.assertEqual(ch.user, self.roy)
+        self.team_check = Check(user=self.alice, name="Pair Programming")
+        self.team_check.save()
+        status = []
+        for email in ["bob@example.org", "charlie@example.org",
+                      "austin.roy@andela.com"]:
+            self.client.login(username=email, password="password")
+            url = "/checks/%s/log/" % self.team_check.code
+            r = self.client.get(url)
+            status.append(r.status_code)
+        self.assertEqual(status, [200, 403, 403])
 
     ### Test that bad kinds don't work
     def test_bad_kinds_dont_work(self):
-        url = "/integrations/add/"
-        form = {"kind": "Manager", "value": "Conte"}
-
         self.client.login(username="alice@example.org", password="password")
-        response = self.client.post(url, form)
-        self.assertEqual(400, response.status_code)
+        status = []
+        for kind in ['email', 'andela', 'pd', 'austin', 'PO']:
+            url = '/integrations/add_%s/' % kind
+            r = self.client.get(url)
+            status.append(r.status_code)
+        self.assertEqual(status, [200, 404, 200, 404, 404])
