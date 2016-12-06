@@ -87,33 +87,10 @@ DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.postgresql',
         'NAME':     'hc',
-        'USER':     'elcuatro',
-        'PASSWORD': 'elcuatro_admin',
+        'USER':     'postgres',
         'TEST': {'CHARSET': 'UTF8'}
     }
 }
-
-# You can switch database engine to postgres or mysql using environment
-# variable 'DB'. Travis CI does this.
-# if os.environ.get("DB") == "postgres":
-#     DATABASES = {
-#         'default': {
-#             'ENGINE':   'django.db.backends.postgresql',
-#             'NAME':     'hc',
-#             'USER':     'postgres',
-#             'TEST': {'CHARSET': 'UTF8'}
-#         }
-#     }
-
-# if os.environ.get("DB") == "mysql":
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'USER':     'root',
-#             'NAME':     'hc',
-#             'TEST': {'CHARSET': 'UTF8'}
-#         }
-#     }
 
 LANGUAGE_CODE = 'en-us'
 
@@ -143,9 +120,12 @@ COMPRESS_OFFLINE = True
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
 # Update database configuration with $DATABASE_URL.
-if os.environ.get('HEROKU'):
-    db_from_env = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
+# if os.environ.get('HEROKU'):
+#     db_from_env = dj_database_url.config()
+#     DATABASES['default'].update(db_from_env)
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Slack integration -- override these in local_settings
 SLACK_CLIENT_ID = None
