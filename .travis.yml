@@ -1,17 +1,17 @@
 language: python
 python:
-  - "2.7"
-  - "3.4"
+- '2.7'
 install:
-    - pip install -r requirements.txt
-    - pip install braintree coveralls mock mysqlclient
-env:
-  - DB=sqlite
-  - DB=mysql
-  - DB=postgres
+- pip install -r requirements.txt
+- pip install braintree coveralls mock mysqlclient
+env: DB=postgres
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
 script:
-  - coverage run --omit=*/tests/* --source=hc manage.py test
+- coverage run --omit=*/tests/* --source=hc manage.py test
 after_success: coveralls
 cache: pip
+sudo: required
+notifications:
+  slack:
+    secure: E+RaQKezni9KdUb4GJ4MGsnQvI+e0HFdo5/HQeiye0wHM/q6RKhjF3LOD0+txyI2JmE650ISxJaUjZtURglnJi29QHWRE6tJWVfaTi9NN87eU2KtK7vrRB4jQ384h6tQbH0aAlfxQYvuhHJY0CZhnxBkSlwzuua3a//YBdbjcjATX0VollWIkLHpuTIFDLcJIJlX+O3XTzVsAF78Cv9di5JahE5e/shrys+bNmmFXnHTDBzNnpF/kXLgIvAb5UN73v+PUbGV0WHLwRQjsTe9NnPOYy0Jz4o0oPHXbugknHGdxWKWYRq9uXVp8ZaIRNT5pfoYVzmZG9JFSz5vSlnG/cmHdSS7+U3N2VbA5FneP86H2XfwSyZqqml7w74eSvy9k/n6ia1ksI9EXvRlBamg8zMWMBGyUdfKEketlM0CyAxa1iChp16O4kZaPbbQgNrAvJucM68Y+lK3A1eh+qlO0ZPOtfADWgfJSiK5fQ+R/uNRceCAY3aYIxNGDTSBPMqQIowUw1J7SwZvYhSKmKuyn7cH8fzf8K4FLct5zDFMYmO92N5lYNmAAtiBC5n6qeaUbTuey1qaBs4L4BDTiT36Fbt4RMNg6eXMBiiGQeTZt/QRy3BDGRXGVsHICLN9oqeNBidX6k3SCD1CMNOybhylfdD4ZC8rCwJ4m7o8fTILVBs=
