@@ -37,25 +37,25 @@ class AddChannelTestCase(BaseTestCase):
             r = self.client.get(url)
             self.assertContains(r, "Integration Settings", status_code=200)
 
-    ### Test that the team access works
+    # Test that the team access works
     def test_team_access_network(self):
         self.team_check = Check(user=self.alice, name="Pair Programming")
         self.team_check.save()
         status = []
-        for email in ["bob@example.org", "charlie@example.org",
+        for email in [self.bob.email, "charlie@example.org",
                       "austin.roy@andela.com"]:
             self.client.login(username=email, password="password")
-            url = "/checks/%s/log/" % self.team_check.code
+            url = "/checks/{}/log/" .format(self.team_check.code)
             r = self.client.get(url)
             status.append(r.status_code)
         self.assertEqual(status, [200, 403, 403])
 
-    ### Test that bad kinds don't work
+    # Test that bad kinds don't work
     def test_bad_kinds_dont_work(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username=self.alice.email, password="password")
         status = []
         for kind in ['email', 'andela', 'pd', 'austin', 'PO']:
-            url = '/integrations/add_%s/' % kind
+            url = '/integrations/add_{}/'.format(kind)
             r = self.client.get(url)
             status.append(r.status_code)
         self.assertEqual(status, [200, 404, 200, 404, 404])
