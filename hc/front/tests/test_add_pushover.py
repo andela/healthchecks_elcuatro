@@ -39,7 +39,7 @@ class AddPushoverTestCase(BaseTestCase):
 
     # Test that pushover validates priority
     def test_priority_validation(self):
-        self.client.login(username="alice@example.org", password="password")
+        self.client.login(username=self.alice.email, password="password")
         session = self.client.session
         session["po_nonce"] = "n"
         session.save()
