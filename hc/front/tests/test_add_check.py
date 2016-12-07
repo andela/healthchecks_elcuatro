@@ -14,6 +14,6 @@ class AddCheckTestCase(BaseTestCase):
     ### Test that team access works
     def test_team_access_channel(self):
         url = "/checks/add/"
-        self.client.login(username="bob@example.org", password="password")
+        self.client.login(username=self.bob.email, password="password")
         response = self.client.post(url)
         self.assertRedirects(response, "/checks/")
