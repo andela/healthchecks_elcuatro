@@ -19,7 +19,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 HOST = "localhost"
 SECRET_KEY = "---"
-DEBUG = True
 ALLOWED_HOSTS = []
 DEFAULT_FROM_EMAIL = 'healthchecks@example.org'
 USE_PAYMENTS = False
@@ -85,9 +84,9 @@ TEST_RUNNER = 'hc.api.tests.CustomRunner'
 # install requirements.txt and do manage.py runserver and it works
 DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.postgresql',
-        'NAME':     'hc',
-        'USER':     'postgres',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hc',
+        'USER': 'postgres',
         'TEST': {'CHARSET': 'UTF8'}
     }
 }
@@ -118,11 +117,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 COMPRESS_OFFLINE = True
 
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
-
-# Update database configuration with $DATABASE_URL.
-# if os.environ.get('HEROKU'):
-#     db_from_env = dj_database_url.config()
-#     DATABASES['default'].update(db_from_env)
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
