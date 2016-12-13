@@ -10,7 +10,7 @@ addons:
   postgresql: '9.4'
 before_script: [
   psql -c 'create database hc;' -U postgres,
-  python manage.py compress
+  python manage.py compress,
   python manage.py collectstatic --noinput,
   python manage.py migrate
 ]
