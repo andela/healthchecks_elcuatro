@@ -25,4 +25,4 @@ deploy:
   app: hc-elcuatro-dev
   on:
     repo: andela/healthchecks_elcuatro
-    branch: ch-heroku-deploy-134841633
+    branch: develop
