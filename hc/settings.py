@@ -113,6 +113,7 @@ STATICFILES_FINDERS = (
 )
 
 COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = True
 
 EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
