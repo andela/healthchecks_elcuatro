@@ -9,4 +9,5 @@ static-collected
 static/.DS_Store
 
 # pycharm
-.idea/
+.idea/sendgrid.env
+sendgrid.env
