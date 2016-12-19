@@ -22,7 +22,17 @@ class CheckTokenTestCase(BaseTestCase):
         self.assertEqual(self.profile.token, "")
 
     ### Login and test it redirects already logged in
+    def test_it_redirects_when_logged_in(self):
+        self.client.login(username= self.alice.email, password="password")
+        url = "/accounts/check_token/alice/secret-token/"
+        r = self.client.post(url)
+        self.assertRedirects(r, "/checks/")
 
     ### Login with a bad token and check that it redirects
+    def test_it_redirects_after_bad_login(self):
+        url = "/accounts/check_token/alice/invalid-token/"
+        r = self.client.post(url, follow=True)
+        self.assertRedirects(r, "/accounts/login/")
+        self.assertContains(r, "incorrect or expired")
 
     ### Any other tests?
