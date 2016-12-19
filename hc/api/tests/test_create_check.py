@@ -17,6 +17,7 @@ class CreateCheckTestCase(BaseTestCase):
         if expected_error:
             self.assertEqual(r.status_code, 400)
             ### Assert that the expected error is the response error
+            self.assertEqual(r.json()['error'],expected_error,msg=r.json())
 
         return r
 
@@ -37,6 +38,8 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(doc["tags"], "bar,baz")
 
         ### Assert the expected last_ping and n_pings values
+        self.assertEqual(doc['last_ping'], None)
+        self.assertEqual(doc['n_pings'], 0)
 
         self.assertEqual(Check.objects.count(), 1)
         check = Check.objects.get()
@@ -49,9 +52,10 @@ class CreateCheckTestCase(BaseTestCase):
         payload = json.dumps({"name": "Foo"})
 
         ### Make the post request and get the response
-        r = {'status_code': 201} ### This is just a placeholder variable
+        r = self.client.post(
+            self.URL, payload, content_type='application/json', HTTP_X_API_KEY="abc")
 
-        self.assertEqual(r['status_code'], 201)
+        self.assertEqual(r.status_code, 201)
 
     def test_it_handles_missing_request_body(self):
         ### Make the post request with a missing body and get the response
@@ -66,11 +70,11 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(r["error"], "could not parse request body")
 
     def test_it_rejects_wrong_api_key(self):
-        self.post({"api_key": "wrong"},
+        self.post({"api_key": "nasjdnasjkndaskjnd"},
                   expected_error="wrong api_key")
 
     def test_it_rejects_non_number_timeout(self):
-        self.post({"api_key": "abc", "timeout": "oops"},
+        self.post({"api_key": "abc", "timeout": "astring"},
                   expected_error="timeout is not a number")
 
     def test_it_rejects_non_string_name(self):
@@ -78,4 +82,10 @@ class CreateCheckTestCase(BaseTestCase):
                   expected_error="name is not a string")
 
     ### Test for the assignment of channels
+    def test_check_assignment_of_channels(self):
+        check = Check()
+        self.assertTrue(check,None)
+
     ### Test for the 'timeout is too small' and 'timeout is too large' errors
+    def test_timeout_tosmall_toolarge(self):
+        self.post({"api_key":"abc","timeout":700000},expected_error = "timeout is too large")
